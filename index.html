@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+		body {
+			background-color: #f2f2f2;
+			font-family: Arial, sans-serif;
+		}
+
+		h1 {
+			color: blue;
+			text-align: center;
+		}
+
+		p {
+			font-size: 18px;
+			line-height: 1.5;
+			margin-bottom: 20px;
+		}
+
+		.btn {
+			background-color: #4CAF50;
+			border: none;
+			color: white;
+			padding: 10px 20px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			margin: 10px;
+			cursor: pointer;
+			border-radius: 5px;
+		}
+
+		.btn:hover {
+			background-color: #3e8e41;
+		}
+
+		canvas {
+			border: 1px solid black;
+			cursor: crosshair;
+		}
+	</style>
+	<title>Paint</title>
+</head>
+<body>
+	<canvas id="canvas" width="500" height="500"></canvas>
+	<br>
+	<label for="color">Selecione uma cor:</label>
+	<input type="color" id="color" value="#000000">
+	<br><br>
+	<button class="btn" onclick="clearCanvas()">Limpar</button>
+	<button class="btn" onclick="downloadCanvas()">Download</button>
+
+	<script>
+		var canvas = document.getElementById("canvas");
+		var context = canvas.getContext("2d");
+		var colorPicker = document.getElementById("color");
+		var painting = false;
+
+		canvas.addEventListener("mousedown", startPainting);
+		canvas.addEventListener("mouseup", stopPainting);
+		canvas.addEventListener("mousemove", draw);
+
+		function startPainting(event) {
+			painting = true;
+			draw(event);
+		}
+
+		function stopPainting() {
+			painting = false;
+		}
+
+		function draw(event) {
+			if (!painting) return;
+			context.fillStyle = colorPicker.value;
+			context.fillRect(event.offsetX, event.offsetY, 10, 10);
+		}
+
+		function clearCanvas() {
+			context.clearRect(0, 0, canvas.width, canvas.height);
+		}
+
+		function downloadCanvas() {
+			var link = document.createElement('a');
+			link.download = 'mypainting.png';
+			link.href = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+			link.click();
+		}
+	</script>
+</body>
+</html>
+Site Por Arthur E Dhlox
+<title>AniJam Animate 1.2</title>
